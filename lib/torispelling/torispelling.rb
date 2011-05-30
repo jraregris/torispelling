@@ -1,5 +1,4 @@
 require 'text'
-require 'pp'
 
 class Object
   def method_missing method, *args, &block
@@ -7,7 +6,7 @@ class Object
     dist = Text::Levenshtein.distance method.to_s, sym.to_s
 
     if dist < 2
-      send(sym.to_s)
+      send(sym, *args, &block)
     else
       super
     end
